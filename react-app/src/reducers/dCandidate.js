@@ -1,3 +1,4 @@
+import { act } from "react-dom/test-utils";
 import { ACTION_TYPES } from "../actions/dCandidate";
 
 const initialState={
@@ -10,7 +11,21 @@ export const dCandidate =(state=initialState,action) =>{
                 ...state,
                 list:[...action.payload]
             }
-            
+            case ACTION_TYPES.CREATE:
+                return {
+                    ...state,
+                    list:[...state.list,action.payload]
+                }
+            case ACTION_TYPES.DELETE:
+                return {
+                    ...state,
+                    list:state.list.filter(x=>x.id!=action.payload)
+                }
+            case ACTION_TYPES.UPDATE:
+                return {
+                    ...state,
+                    list:state.list.map(x=>x.id == action.payload.id?action.payload:x)
+                }
     
         default:
             return state;

@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from 'react';
 
+const useForm = (initialFieldValues,validate,setCurrentId) => {
+  const [values, setValues] = useState(initialFieldValues);
+  const [errors, setErrors] = useState({});
 
-const useForm = (initialFieldValues) => {
-  const { values, setValues } = useState(initialFieldValues)
-
-  const handelInputChange = e => {
+  const handelInputChange = (e) => {
     const { name, value } = e.target;
+const fieldValues={[name]:value}
     setValues({
       ...values,
-      [name]: value
-    })
+    ...fieldValues,
+    });
+    validate(fieldValues)
+  };
+  const resetForm =()=>{
+    setValues({...initialFieldValues})
+    setErrors({})
+    setCurrentId(0)
   }
-  return { values, setValues, handelInputChange };
-
-}
+  return { values, setValues, errors, setErrors, handelInputChange ,resetForm};
+};
 
 export default useForm;

@@ -1,19 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
 
-// for using store 
-import { store } from "./actions/store";
-import{Provider} from "react-redux";
+// for using store
+import { store } from './actions/store';
+import { Provider } from 'react-redux';
 import DCandidates from './components/DCandidates';
-///// 
-import { Container } from "@material-ui/core";
+/////
+import { Container } from '@material-ui/core';
+import { ToastProvider } from 'react-toast-notifications';
 function App() {
   return (
-   <Provider store={store}>
-     <Container maxWidth="lg">
-<DCandidates></DCandidates>
-</Container>
-   </Provider>
+    <Provider store={store}>
+      <ToastProvider autoDismiss={true}>
+      <Container maxWidth="lg">
+        <DCandidates></DCandidates>
+      </Container>
+      </ToastProvider>
+     
+    </Provider>
   );
 }
 
